@@ -1,25 +1,20 @@
 package com.exam.event;
 
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
+import com.exam.net.Channel;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import javax.swing.text.JTextComponent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import static com.exam.Exam.MODID;
-import static com.exam.gui.hud.LightLevelHud.LIGHT_LEVEL_HUD;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD,modid = MODID)
 public class ModEventSubscriber {
     @SubscribeEvent
-    public static void addHud(RegisterGuiOverlaysEvent event) {
-        event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "light_level_hud", LIGHT_LEVEL_HUD);
+    public static void onCommonSetupEvent(FMLCommonSetupEvent event) {
+        Channel.register();
     }
 
-    /*@SubscribeEvent
-    public static void onKeyInput(InputEvent.Key event){
-
-    }*/
 }

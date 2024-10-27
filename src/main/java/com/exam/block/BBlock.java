@@ -1,8 +1,9 @@
 package com.exam.block;
 
-import com.exam.gui.hud.LightLevelHud;
+import com.exam.net.Channel;
+import com.exam.net.pkg.SetBossBar;
+import com.exam.regist.ItemRegist;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -48,11 +49,10 @@ public class BBlock extends Block {
             int light = blockState.getValue(LIGHT_LEVEl);
             if(light==15){
                 level.setBlock(blockPos,blockState.setValue(LIGHT_LEVEl,0),1);
-                LightLevelHud.light_level=0;
             }else {
                 level.setBlock(blockPos,blockState.setValue(LIGHT_LEVEl,light + 1),1);
-                LightLevelHud.light_level=light + 1;
             }
+            Channel.sendToServer(new SetBossBar((Integer)blockState.getValue(LIGHT_LEVEl)));
         }
         return InteractionResult.SUCCESS;
     }
